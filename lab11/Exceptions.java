@@ -1,18 +1,22 @@
 package lab11;
 
 public class Exceptions {
-	int hour, min;
-	String time, temp;
+	private int hour, min;
+	private String temp;
 	
 	Exceptions() {
 	}
 	public String stripper(String time) {
-		if(time.length() == 4) {
+		if(time.length() == 4 && time.charAt(1) != ':') {
+			return "0";			
+		} else if(time.length() == 5 && (time.charAt(2)) != ':') {
+			return "0";
+		} else if(time.length() == 4) {
 			time = "0" + time;
 		}
 		StringBuilder sb = new StringBuilder(time);
 		sb.deleteCharAt(2);
-		String stripped = sb.toString();
+		String stripped = sb.toString();			
 		return stripped;
 	}
 	public String converter(String time) {

@@ -10,7 +10,10 @@ public class ExceptionsTest {
 		while(!stop) {
 			try {
 				System.out.println("Enter the 24 hour time: ");
-				String time = sc.nextLine().strip();
+				String time = sc.nextLine();
+				while(test.stripper(time).equals("0")) {
+					throw(new BoundsTimeFormatException("Invalid Format"));
+				}
 				time = test.stripper(time);
 				for(int i = 0; i < time.length(); i++) {
 					switch(time.charAt(i)) {
@@ -30,15 +33,18 @@ public class ExceptionsTest {
 					}
 				}
 				if(Integer.parseInt(time) > 2459 || Integer.parseInt(time) < 0000) {
-					throw new TimeFormatException("Enter a different number");
+					throw new TimeFormatException("Out of bounds");
 				}
 				System.out.println("Time: " + test.converter(time));
 			} catch (TimeFormatException t) {
-				System.out.println("That doesn't work");
+				System.out.println(t.getMessage());
+				main(args);
+			} catch (BoundsTimeFormatException b) {
+				System.out.println(b.getMessage());
 				main(args);
 			}
 			System.out.println("Convert again? (yes/no): ");
-			answer = sc.nextLine().toLowerCase().strip();
+			answer = sc.nextLine().toLowerCase();
 			if(answer.equals("no")) {
 				stop = true;
 			}
